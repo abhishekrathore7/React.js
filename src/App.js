@@ -3,16 +3,24 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Main from './Components/MainComponent';
 import { DISHES } from './shared/dishes';
+import { Provider } from 'react-redux';
+import { configureStore } from './redux/configureStore'
 
+
+const store = configureStore();
 class App extends Component {
+
+  
  
   render() {
     return (
+      <Provider store={store}>
       <BrowserRouter>
-      <div >
-       <Main />
-      </div>
+        <div className="App">
+          <Main />
+        </div>
       </BrowserRouter>
+    </Provider>
     );
   }
 
