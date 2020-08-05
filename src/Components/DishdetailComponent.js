@@ -1,22 +1,9 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  Row,
-  Col,
-  Label
+import {Card,CardImg,CardText,CardBody,CardTitle,Modal,ModalHeader,ModalBody,Breadcrumb,BreadcrumbItem,Button,Row,Col,Label
 } from "reactstrap";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link } from "react-router-dom";
+import { Loading } from './LoadingComponent';
 
 
 const required = val => val && val.length;
@@ -167,7 +154,27 @@ function RenderComments({ comments,addComment,dishId }) {
     } else return <div />;
   }
 
-  const dishDetail = props => (
+  const dishDetail = props => {
+    if (props.isLoading) {
+      return(
+          <div className="container">
+              <div className="row">            
+                  <Loading />
+              </div>
+          </div>
+      );
+  }
+  else if (props.errMess) {
+    return(
+        <div className="container">
+            <div className="row">            
+                <h4>{props.errMess}</h4>
+            </div>
+        </div>
+    );
+}
+else if (props.dish != null) 
+  return (
     <div className="container">
       <div className="row">
         <Breadcrumb>
@@ -189,5 +196,6 @@ function RenderComments({ comments,addComment,dishId }) {
         />
       </div>
     </div>
-  );
+  )
+  };
   export default dishDetail;
